@@ -48,6 +48,7 @@ class Utils {
   }
   /* Verificamos las laves de los objetos */
   static verifyObjectKey(obj: any, keys: string[]) {
+    if (!obj) return undefined;
     let response:any = {};
     Object.entries(obj).forEach(([key, value]) => {
       if (keys.filter(_key => _key === key)) response[key] = value;
