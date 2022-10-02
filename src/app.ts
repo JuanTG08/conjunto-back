@@ -2,8 +2,14 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+
 // Obtenemos las variables de configuraciones
 import env from './config/config';
+// Obtenemos la conexion a la base de datos
+import Mongo from './config/database';
+// Nos conectamos a la base de datos
+new Mongo().connect();
+
 // Creamos la variable APP para el inicio del servidor
 const app = express();
 
