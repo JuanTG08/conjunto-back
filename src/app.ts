@@ -15,7 +15,10 @@ const app = express();
 
 // Configuraciones previas
 app.set('port', env.PORT_SERVER);
+
+// Middlewares
 app.use(morgan('dev'));
+app.use(express.json());
 app.use(cors());
 
 /*
@@ -25,6 +28,7 @@ app.use(cors());
 */
 // Importamos las rutas ***
 import access_page_route from './routes/access-page.routes';
-app.use('api/access-page', access_page_route);
+// Establecemos las rutas ***
+app.use('/api/access-page', access_page_route); // Ruta relacionada a la autorizacion de los usuarios
 
 export default app;

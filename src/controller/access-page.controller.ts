@@ -3,7 +3,8 @@ import AccessPages from "../model/access-page.model";
 
 class AccessPagesCtrl {
   static async createNewPage(req: any, res: any) {
-    const { name, description, path, method, from } = req.body;
+    console.log(req.body);
+    const { name, description, path, method, from }: any = req.body;
     const data = {
       name: Hook._length(name, 64, 4),
       description: Hook._length(description, 250, 4),
