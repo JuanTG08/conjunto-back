@@ -4,10 +4,11 @@ import RolModel from "../model/rol.model";
 
 class RolCtrl {
   static async createNewRol(req: any, res: any) {
-    const { name, description, toBack, toFront, status }: IDataRol = req.body;
+    const { name, description, toDepend, toBack, toFront, status }: IDataRol = req.body;
     const data = {
       name: Hook._length(name, 64, 4),
       description: Hook._length(description, 300, 1),
+      toDepend: Hook.verifyObjectKey(toDepend, ['id', 'name']),
       toBack: Hook._length(toBack, 999, 0),
       toFront: Hook._length(toFront, 999, 0),
       status: Hook.isBoolean(status),
@@ -36,10 +37,11 @@ class RolCtrl {
 
   static async modifyOneRol(req: any, res: any) {
     const { _id } = req.params;
-    const { name, description, toBack, toFront, status }: IDataRol = req.body;
+    const { name, description, toDepend, toBack, toFront, status }: IDataRol = req.body;
     const data = {
       name: Hook._length(name, 64, 4),
       description: Hook._length(description, 300, 1),
+      toDepend: Hook.verifyObjectKey(toDepend, ['id', 'name']),
       toBack: Hook._length(toBack, 999, 0),
       toFront: Hook._length(toFront, 128, 0),
       status: Hook.isBoolean(status),

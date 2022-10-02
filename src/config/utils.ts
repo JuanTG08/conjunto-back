@@ -46,6 +46,14 @@ class Utils {
     value = value.toString();
     return value.length <= max && value.length >= min ? value : undefined;
   }
+  /* Verificamos las laves de los objetos */
+  static verifyObjectKey(obj: any, keys: string[]) {
+    let response:any = {};
+    Object.entries(obj).forEach(([key, value]) => {
+      if (keys.filter(_key => _key === key)) response[key] = value;
+    });
+    return Object.entries(response).length > 0 ? response : undefined;
+  }
   /* Estructuramos los datos de un objeto */
   static structureObject(obj: any) {
     let response: any = {};

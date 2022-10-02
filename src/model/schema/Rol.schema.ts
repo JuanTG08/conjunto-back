@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const RoleSchema = new mongoose.Schema({
     name: {
@@ -10,14 +10,19 @@ const RoleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    toDepend: {
+        type: Object,
+    },
     toBack: [
         {
             ref: 'Access-Page',
+            type: Object,
         }
     ],
     toFront: [
         {
             ref: 'Access-Page',
+            type: Object,
         }
     ],
     status: {
