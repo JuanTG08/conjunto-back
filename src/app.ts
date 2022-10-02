@@ -17,5 +17,8 @@ app.use(cors());
 *   Rutas
 *
 */
+// Importamos las rutas ***
+import access_page_route from './routes/access-page.routes';
+app.use('api/access-page', access_page_route);
 
 export default app;
