@@ -1,5 +1,6 @@
 import Hook from "../config/utils";
 import Files from "./schema/files.schemas";
+import fs from "fs-extra";
 
 class FilesModel {
   static create(data: any) {
@@ -66,6 +67,12 @@ class FilesModel {
           "Error al intentar generar esta acción"
         );
       });
+  }
+
+  static async moveFiles(src: string, dest: string) {
+    return await fs.move(src, dest)
+      .then(() => Hook.Message(false, 200, "Moved"))
+      .catch(err => Hook.Message(true, 500, "Error internal"))
   }
 
   static disable(_id: string) {
