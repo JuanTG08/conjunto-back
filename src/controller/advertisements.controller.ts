@@ -32,12 +32,12 @@ class AdvertisementCtrl {
   }
 
   static async listAll(req: any, res: any) {
-    const { _id } = req.params; // Obtenemos su ID
-    if (!Hook.verifyId(_id))
+    const { transmitter_id } = req.params; // Obtenemos su ID
+    if (!Hook.verifyId(transmitter_id))
       // Comprobamos que no este vacio
       return res.json(Hook.Message(true, 0, "Campos Vacios"));
     return res.json(
-      await AdvertisementsModel.findAny({ transmitter: { _id } })
+      await AdvertisementsModel.findAny({ transmitter: { transmitter_id } })
     );
   }
 
