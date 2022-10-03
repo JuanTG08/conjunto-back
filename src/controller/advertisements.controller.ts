@@ -37,7 +37,7 @@ class AdvertisementCtrl {
       // Comprobamos que no este vacio
       return res.json(Hook.Message(true, 0, "Campos Vacios"));
     return res.json(
-      await AdvertisementsModel.findAny({ transmitter: { transmitter_id } })
+      await AdvertisementsModel.findAny({ "transmitter._id": transmitter_id })
     );
   }
 
@@ -71,7 +71,7 @@ class AdvertisementCtrl {
       status: Hook.isBoolean(status), // Estado del anuncio
     };
     const strObject = await Hook.structureObject(data); // Estructuramos que campos iran a actualizarse
-    if (!Hook.verifyId(_id) || !Hook.verifyId(transmitter_id)) // Verificamos los roles
+    if (!strObject || !Hook.verifyId(_id) || !Hook.verifyId(transmitter_id)) // Verificamos los roles
       return res.json(Hook.Message(true, 0, "Campos Vacios"));
     return res.json(await AdvertisementsModel.modify(strObject, _id, transmitter_id));
   }

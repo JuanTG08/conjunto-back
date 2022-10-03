@@ -22,7 +22,7 @@ class RolModel {
   static findOneById(_id: string, transmitter_id: string) {
     return AdvertisementsPages.find({
       _id,
-      transmitter: { _id: transmitter_id },
+      "transmitter._id": transmitter_id,
     })
       .then((resp) => {
         if (resp.length > 0) return Hook.Message(false, 200, "Ok", resp);
@@ -54,7 +54,7 @@ class RolModel {
 
   static modify(data: any, _id: string, transmitter_id: string) {
     return AdvertisementsPages.findByIdAndUpdate(
-      { _id, transmitter: { _id: transmitter_id } },
+      { _id, "transmitter._id": transmitter_id },
       data
     )
       .then((resp) => {
@@ -70,7 +70,7 @@ class RolModel {
   }
 
   static disable(_id: string, transmitter_id: string) {
-    return AdvertisementsPages.findByIdAndUpdate({ _id, transmitter: { _id: transmitter_id } }, { status: false })
+    return AdvertisementsPages.findByIdAndUpdate({ _id, "transmitter._id": transmitter_id }, { status: false })
       .then((resp) => {
         return Hook.Message(false, 200, "Se deshabilito correctamente");
       })
@@ -84,7 +84,7 @@ class RolModel {
   }
 
   static delete(_id: string, transmitter_id: string) {
-    return AdvertisementsPages.findByIdAndRemove({ _id, transmitter: { _id: transmitter_id } })
+    return AdvertisementsPages.findByIdAndRemove({ _id, "transmitter._id": transmitter_id })
       .then((resp) => {
         return Hook.Message(false, 200, "Se Elimino correctamente");
       })
