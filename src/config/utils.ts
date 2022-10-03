@@ -47,13 +47,13 @@ class Utils {
     return value.length <= max && value.length >= min ? value : undefined;
   }
   /* Verificamos las laves de los objetos */
-  static verifyObjectKey(obj: any, keys: string[]) {
+  static verifyObjectKey(obj: any, keys: string[], keyLength: number = 1) {
     if (!obj) return undefined;
     let response:any = {};
     Object.entries(obj).forEach(([key, value]) => {
       if (keys.filter(_key => _key === key)) response[key] = value;
     });
-    return Object.entries(response).length > 0 ? response : undefined;
+    return Object.entries(response).length >= keyLength ? response : undefined;
   }
   /* Estructuramos los datos de un objeto */
   static structureObject(obj: any) {
@@ -74,6 +74,11 @@ class Utils {
     });
     return error.length === 0 ? true : error;
   };
+
+  // Verificacion del ID
+  static verifyId(id: string): boolean {
+    return !(!id || id === undefined || id === null || id.length <= 0);
+  }
 
   /* Obtenemos el tiempo deseado */
   static getTime = (min: number = 0) => {
