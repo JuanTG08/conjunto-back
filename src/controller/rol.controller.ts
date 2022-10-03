@@ -8,7 +8,7 @@ class RolCtrl {
     const data = {
       name: Hook._length(name, 64, 4),
       description: Hook._length(description, 300, 1),
-      toDepend: Hook.verifyObjectKey(toDepend, ['id', 'name']),
+      // toDepend: Hook.verifyObjectKey(toDepend, ['id', 'name']),
       toBack: Hook._length(toBack, 999, 0),
       toFront: Hook._length(toFront, 999, 0),
       status: Hook.isBoolean(status),
@@ -41,7 +41,7 @@ class RolCtrl {
     const data = {
       name: Hook._length(name, 64, 4),
       description: Hook._length(description, 300, 1),
-      toDepend: Hook.verifyObjectKey(toDepend, ['id', 'name']),
+      // toDepend: Hook.verifyObjectKey(toDepend, ['id', 'name']),
       toBack: Hook._length(toBack, 999, 0),
       toFront: Hook._length(toFront, 128, 0),
       status: Hook.isBoolean(status),

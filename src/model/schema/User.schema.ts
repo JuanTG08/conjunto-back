@@ -18,9 +18,13 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: false
     },
+    toDepend: {
+        type: Object,  // ['id', 'name']
+        required: true,
+    },
     role: {
         ref: "Role",
-        type: Object,
+        type: Object, // {_id, nombre}
     },
     status: {
         type: Boolean,

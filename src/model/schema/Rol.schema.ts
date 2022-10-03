@@ -10,9 +10,12 @@ const RoleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    /*
     toDepend: {
-        type: Object,
+        type: Object, // ['id', 'name']
+        required: true,
     },
+    */
     toBack: [
         {
             ref: 'Access-Page',

@@ -13,8 +13,8 @@ class UserModel {
             });
     }
 
-    static listAll() {
-        return User.find({})
+    static list(query: object) {
+        return User.find(query)
             .then(resp => {
                 if (resp.length > 0) return Hook.Message(false, 200, "Ok", resp);
                 return Hook.Message(true, 501, "No se encontro nada.");
