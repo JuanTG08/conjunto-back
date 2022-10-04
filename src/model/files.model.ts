@@ -8,7 +8,7 @@ class FilesModel {
     return schema
       .save()
       .then((resp) => {
-        return Hook.Message(false, 200, "Se guardo el correctamente");
+        return Hook.Message(false, 200, "Se guardo el correctamente", { name_image: resp.name_image, _id: resp._id });
       })
       .catch((err) => {
         console.log(err);
@@ -69,16 +69,32 @@ class FilesModel {
       });
   }
 
+  static async existFile(path: string) {
+    return fs.existsSync(path);
+  }
+
   static async moveFiles(src: string, dest: string) {
     return await fs.move(src, dest)
       .then(() => Hook.Message(false, 200, "Moved"))
-      .catch(err => Hook.Message(true, 500, "Error internal"))
+      .catch((err: any) => Hook.Message(true, 500, "Error internal"))
   }
 
-  static disable(_id: string) {
+  static async deleteFilesByName(name: string) {
+    const file = await FilesModel.findAny({ name_image: name });
+    if (!file || file.statusCode !== 200) return false;
+    const { path } = file.payload[0];
+    await FilesModel.deleteFilesByPath(path);
+    return true;
+  }
+
+  static async deleteFilesByPath(path: string) {
+    await fs.unlink(path);
+  }
+
+  static disable(_id: string, path: string) {
     return Files.findByIdAndUpdate(
       { _id },
-      { status: false }
+      { path, status: false }
     )
       .then((resp) => {
         return Hook.Message(false, 200, "Se deshabilito correctamente");

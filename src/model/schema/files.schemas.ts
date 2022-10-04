@@ -1,9 +1,15 @@
 import mongoose, { Schema } from "mongoose";
 
 const FilesSchema = new mongoose.Schema({
-    path: { // Miniatura, su url
+    path: { // PATH
         type: String,
         required: true,
+        unique: true,
+    },
+    name_image: { // Nombre imagen
+        type: String,
+        required: true,
+        unique: true,
     },
     type_file: {
         type: String,
@@ -28,5 +34,5 @@ const FilesSchema = new mongoose.Schema({
     }
 });
 
-const User = mongoose.model('Advertisements', FilesSchema);
+const User = mongoose.model('Files', FilesSchema);
 export default User;

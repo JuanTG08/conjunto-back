@@ -8,17 +8,17 @@ class FilesCtrl {
     const data: IDataFiles = {
       id_transmitter: Hook._length(id_transmitter, 64, 4),
       name_transmitter: Hook._length(name_transmitter, 300, 1),
-      path: req.files?.path,
-      type_file: "image",
+      name_image: req.file?.filename,
+      path: req.file?.path,
+      type_file: req.file?.mimetype,
       status: true,
     };
-    console.log(data);
-    /*
     const dataVerify = Hook.verifyDataObject(data);
-    if (dataVerify !== true)
-      return res.json(Hook.Message(true, 0, "Campos Vacios", dataVerify));
+    if (dataVerify !== true) {
+      await FilesModel.deleteFilesByPath(data.path);
+      return res.json(Hook.Message(true, 0, "Campos Vacios"));
+    }
     return res.json(await FilesModel.create(data));
-    */
   }
 
   static async listAll(req: any, res: any) {
@@ -33,21 +33,25 @@ class FilesCtrl {
   }
 
   static async disable(req: any, res: any) {
-    const { _id, path } = req.params;
-    if (!Hook.verifyId(_id) || !Hook.verifyId(path))
+    const { _id, name_image } = req.params;
+    if (!Hook.verifyId(_id) || !Hook.verifyId(name_image))
       return res.json(Hook.Message(true, 0, "Campos Vacios"));
-    const moved = await FilesModel.moveFiles(
-      `uploads/active-files/${path}`,
-      `uploads/disable-files${path}`
-    );
+    const lastPath = `uploads/active-files/${name_image}`;
+    const newPath = `uploads/disable-files/${name_image}`;
+    const verifyLastPath = await FilesModel.existFile(lastPath)
+    if (!verifyLastPath)
+      return res.json(Hook.Message(true, 500, "File Inexistente"));
+    const moved = await FilesModel.moveFiles(lastPath, newPath);
     if (!moved || moved.statusCode !== 200) return res.json(moved);
-    return res.json(await FilesModel.disable(_id));
+    return res.json(await FilesModel.disable(_id, newPath));
   }
 
-  static async deleteRol(req: any, res: any) {
-    const { _id } = req.params;
-    if (!Hook.verifyId(_id))
+  static async delete(req: any, res: any) {
+    const { _id, name_image } = req.params;
+    if (!Hook.verifyId(_id) || !Hook.verifyId(name_image))
       return res.json(Hook.Message(true, 0, "Campos Vacios"));
+    const _delete = await FilesModel.deleteFilesByName(name_image);
+    if (!_delete) return res.json(Hook.Message(true, 404, "Not found"));
     return res.json(await FilesModel.delete(_id));
   }
 }

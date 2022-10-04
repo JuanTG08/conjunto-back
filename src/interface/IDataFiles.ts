@@ -1,4 +1,5 @@
 export interface IDataFiles {
+    name_image: string;
     path: string;
     type_file: string;
     id_transmitter: string;
