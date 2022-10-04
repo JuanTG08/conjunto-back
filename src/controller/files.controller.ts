@@ -15,7 +15,7 @@ class FilesCtrl {
     };
     const dataVerify = Hook.verifyDataObject(data);
     if (dataVerify !== true) {
-      await FilesModel.deleteFilesByPath(data.path);
+      // await FilesModel.deleteFilesByPath(data.path);
       return res.json(Hook.Message(true, 0, "Campos Vacios"));
     }
     return res.json(await FilesModel.create(data));

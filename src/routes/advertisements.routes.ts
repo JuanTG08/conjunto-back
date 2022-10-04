@@ -23,7 +23,7 @@ router.route('/handdler-R-advertisements/:transmitter_id')
 
 router.route('/handdler-RUDD-advertisements/:_id/:transmitter_id')
     .get(AdvertisementsCtrl.findOneById) // Encontramos un anuncio especifico
-    .put(multer.single('miniature'), AdvertisementsCtrl.modify) // Modificamos un anuncio
+    .put(AdvertisementsCtrl.modify) // Modificamos un anuncio
     .post(AdvertisementsCtrl.disable) // Desabilitamos anuncios
     .delete(AdvertisementsCtrl.delete) // Eliminamos anuncios
 

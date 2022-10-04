@@ -1,10 +1,8 @@
 // Creamos la instancia de la ruta por defecto en express
-import { Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 // Importamos funciones de nuestro controlador
 import FilesCtrl from '../controller/files.controller';
-// Importamos el modulo de multer
-import multer from '../libs/multer';
-import FileMiddleware from "../middleware/files.middlware";
+import FileMdlw from "../middleware/files.middlware";
 
 const router = Router();
 
@@ -18,7 +16,7 @@ const router = Router();
 */
 
 router.route('/handdler-CR-files')
-    .post(multer.single('file'), FilesCtrl.create) // Creamos nuevo archivo o subimos el archivo
+    .post(FileMdlw.saveImage, FilesCtrl.create) // Creamos nuevo archivo o subimos el archivo
     .get(FilesCtrl.listAll) // Enlistamos todos los archivos
 
 router.route('/handdler-R-files/:_id')

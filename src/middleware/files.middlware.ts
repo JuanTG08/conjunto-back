@@ -1,14 +1,16 @@
-import { Request, Response } from "express";
-import env from "../config/config";
+import { NextFunction, Request, Response } from "express";
 import Hook from "../config/utils";
+import env from "../config/config";
+import Multer from "../libs/multer";
+import multer from "multer";
 
 export default class FileMiddleware {
-    static maxFileSize(req: Request, res: Response, next: any) {
-        const size = req.file?.size;
-        if (size) {
-            if (size >= 1) return res.json(Hook.Message(true, 413, 'File exceeds the maximum size'));
-            return next();
-        }
-        return res.json(Hook.Message(true, 402, 'Required File'));
-    }
+  static saveImage(req: Request, res: Response, next: NextFunction): void {
+    const _multer = new Multer()._multer().single("file");
+    _multer(req, res, function (err) {
+      if (err instanceof multer.MulterError || err)
+        return res.json(Hook.Message(false, 500, "File Not Supported | File Very Long"));
+      next();
+    });
+  }
 }
