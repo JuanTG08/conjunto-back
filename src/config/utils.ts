@@ -1,4 +1,6 @@
 import IMessage from "../interface/IMessage";
+import env from "../config/config";
+import CryptoJS from "crypto-js";
 class Utils {
   static Message(
     error: Boolean,
@@ -14,7 +16,28 @@ class Utils {
     };
   }
   /* Realizamos todas las funciones relacionadas a la encriptación */
-  static encrypt(value: string) {}
+  static encrypt(value: string, key: string): string {
+    const encrypt = CryptoJS.AES.encrypt(value, key);
+    return encrypt.toString();
+  }
+
+  static veifyHash(encrypt: string, value: string, key: string): boolean {
+    try {
+      const decrypt = CryptoJS.AES.decrypt(encrypt, key).toString();
+      return decrypt === value;
+    } catch (error: any) {
+      return false;
+    }
+  }
+
+  static decrypt(encrypt: string, key: string): boolean | string {
+    try {
+      const decrypt = CryptoJS.AES.decrypt(encrypt, key).toString();
+      return decrypt;
+    } catch (error: any) {
+      return false;
+    }
+  }
 
   /* Realizamos todo lo relacionado al tiempo */
   static getStimationTimeMins(timeNow: number, expiration_time_min: number) {
@@ -46,6 +69,12 @@ class Utils {
     value = value.toString();
     return value.length <= max && value.length >= min ? value : undefined;
   }
+
+  static isMail(email: string): undefined | string {
+    const expresionMail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    return expresionMail.test(email) ? email : undefined;
+  }
+
   /* Verificamos las laves de los objetos */
   static verifyObjectKey(obj: any, keys: string[], keyLength: number = 1) {
     if (!obj) return undefined;

@@ -24,7 +24,7 @@ class RolModel {
     }
 
     static findOneById(_id: ObjectId) {
-        return RolPages.find({ _id })
+        return RolPages.find({ _id, status: true })
             .then(resp => {
                 if (resp.length > 0) return Hook.Message(false, 200, "Ok", resp);
                 return Hook.Message(false, 501, "No se encontro nada.");

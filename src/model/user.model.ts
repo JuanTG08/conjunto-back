@@ -23,7 +23,7 @@ class UserModel {
             });
     }
 
-    static findOneByLogin(email: string) {
+    static findOneByEmail(email: string) {
         return User.findOne({email})
             .then(user => {
                 if (user) return Hook.Message(false, 200, "Usuario encontrado", user);

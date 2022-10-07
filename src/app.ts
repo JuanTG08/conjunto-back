@@ -29,11 +29,13 @@ app.use(cors());
 */
 // Importamos las rutas ***
 import access_page_route from './routes/access-page.routes'; // Ruta para el acceso de las paginas
+import user_route from './routes/user.routes'; // Ruta para los anuncios
 import roles_route from './routes/roles.routes'; // Ruta para los roles
 import advertisements_route from './routes/advertisements.routes'; // Ruta para los anuncios
 import files_route from './routes/files.routes'; // Ruta para los anuncios
 // Establecemos las rutas ***
 app.use('/api/access-page', access_page_route); // Ruta relacionada a la autorizacion de los usuarios
+app.use('/api/user', user_route); // Ruta relacionada a los usuarios
 app.use('/api/roles', roles_route); // Ruta relacionada a la ejecución de los roles
 app.use('/api/advertisements', advertisements_route); // Ruta relacionada los anuncios
 

@@ -16,7 +16,6 @@ const UserSchema = new mongoose.Schema({
     },
     last_name: {
         type: String,
-        default: false
     },
     toDepend: {
         type: Object,  // ['id', 'name']

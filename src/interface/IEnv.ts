@@ -3,5 +3,6 @@ export default interface IEnv {
     MONGODB_URI: string | undefined;
     SECRET_SERVER: string;
     MAX_FILE_SIZE: number;
+    PWD_ENCRYPT: string;
     CAPTCHA_SECRET?: string | undefined;
 }
