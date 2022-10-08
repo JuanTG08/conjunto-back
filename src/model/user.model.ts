@@ -1,6 +1,5 @@
 import Hook from '../config/utils';
 import User from "./schema/user.schema";
-import { ObjectId } from 'mongoose';
 
 class UserModel {
     static create(data: any) {
@@ -24,7 +23,7 @@ class UserModel {
     }
 
     static findOneByEmail(email: string) {
-        return User.findOne({email})
+        return User.findOne({email, status: true})
             .then(user => {
                 if (user) return Hook.Message(false, 200, "Usuario encontrado", user);
                 return Hook.Message(true, 501, "No se encontro nada.");
@@ -33,8 +32,8 @@ class UserModel {
             });
     }
 
-    static findOneById(_id: ObjectId | string) {
-        return User.findById(_id)
+    static findOneById(query: object) {
+        return User.findById(query)
             .then(user => {
                 if (user) return Hook.Message(false, 200, "Usuario encontrado", user);
                 return Hook.Message(true, 501, "No se encontro nada.");
@@ -42,8 +41,8 @@ class UserModel {
                 return Hook.Message(true, 500, "Error al intentar generar esta acción");
             })
     }
-    static modify(data: any, _id: ObjectId) {
-        return User.findByIdAndUpdate(_id, data)
+    static modify(data: any, query: object) {
+        return User.findByIdAndUpdate(query, data)
             .then(resp => {
                 return Hook.Message(false, 200, "Se Actualizo correctamente");
             }).catch(err => {
@@ -51,8 +50,8 @@ class UserModel {
             });
     }
 
-    static disable(_id: ObjectId) {
-        return User.findByIdAndUpdate(_id, { status: false })
+    static disable(query: object) {
+        return User.findByIdAndUpdate(query, { status: false })
             .then(resp => {
                 return Hook.Message(false, 200, "Se deshabilito correctamente");
             }).catch(err => {
@@ -60,8 +59,8 @@ class UserModel {
             });
     }
 
-    static delete(_id: ObjectId) {
-        return User.findByIdAndRemove(_id)
+    static delete(query: object) {
+        return User.findByIdAndRemove(query)
             .then(resp => {
                 return Hook.Message(false, 200, "Se Elimino correctamente");
             }).catch(err => {

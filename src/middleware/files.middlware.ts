@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import Hook from "../config/utils";
-import env from "../config/config";
 import Multer from "../libs/multer";
 import multer from "multer";
 
