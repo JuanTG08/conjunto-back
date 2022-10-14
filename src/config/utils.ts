@@ -1,6 +1,7 @@
 import IMessage from "../interface/IMessage";
-import env from "../config/config";
-import CryptoJS from "crypto-js";
+import bcryptjs from "bcryptjs";
+import IApplicationType from "../interface/IApplicationType";
+import { TypesApplications } from "../types/type-application";
 class Utils {
   static Message(
     error: Boolean,
@@ -16,18 +17,20 @@ class Utils {
     };
   }
   /* Realizamos todas las funciones relacionadas a la encriptación */
-  static encrypt(value: string, key: string): string {
-    const encrypt = CryptoJS.AES.encrypt(value, key);
-    return encrypt.toString();
+  static encryptPassword(password: string) {
+    return bcryptjs.hashSync(password, 8);
+  }
+  
+  static verifyHash(encrypt: string, value: string): boolean {
+    return bcryptjs.compareSync(value, encrypt);
   }
 
-  static veifyHash(encrypt: string, value: string, key: string): boolean {
-    try {
-      const decrypt = CryptoJS.AES.decrypt(encrypt, key).toString();
-      return decrypt === value;
-    } catch (error: any) {
-      return false;
-    }
+  /*
+  static encrypt(value: string, key: string): string {
+    bcryptjs.hash()
+    const encrypt = CryptoJS.AES.encrypt(value, key);
+    console.log(encrypt);
+    return encrypt.toString();
   }
 
   static decrypt(encrypt: string, key: string): boolean | string {
@@ -114,6 +117,13 @@ class Utils {
     const miliseconds = 60000 * min;
     return new Date(new Date().getTime() + miliseconds).getTime();
   };
+
+  // Obtenemos el tipo de aplicacion
+  static getTypeApplication(application_type: string) : IApplicationType | undefined {
+    return TypesApplications.filter(
+      ({ type }) => application_type === type
+    )[0];
+  }
 }
 
 export default Utils;

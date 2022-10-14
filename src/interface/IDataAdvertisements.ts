@@ -1,7 +1,7 @@
 export interface IAdvertisementTransmitter {
     _id: string;
     nameTransmitter: string;
-    role: string;   
+    role: string;
 }
 
 export interface IDataAdvertisement {

@@ -1,8 +1,8 @@
 // Creamos la instancia de la ruta por defecto en express
-import { NextFunction, Request, Response, Router } from "express";
+import { Router } from "express";
 // Importamos funciones de nuestro controlador
 import FilesCtrl from '../controller/files.controller';
-import FileMdlw from "../middleware/files.middlware";
+import FileMdlw from "../middleware/files.middleware";
 
 const router = Router();
 

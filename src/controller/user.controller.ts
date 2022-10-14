@@ -1,7 +1,5 @@
 import Hook from "../config/utils";
 import UserModel from "../model/user.model";
-import RolModel from "../model/rol.model";
-import env from "../config/config";
 import { Request, Response } from "express";
 // import { IToken, IDataUser } from "../interface/IToken";
 // import RolModel from "../model/rol.model";
@@ -25,7 +23,7 @@ class UserCtrl {
       // Comprobamos que si es apto para guardar
       return res.json(Hook.Message(true, 0, "Campos Vacios", dataVerify));
     // Encriptamos la contraseña
-    data.password = Hook.encrypt(data.password, env.SECRET_SERVER);
+    data.password = Hook.encryptPassword(data.password);
     return res.json(await UserModel.create(data)); // Ejecutamos la consulta y mostramos su resultado
   }
 
