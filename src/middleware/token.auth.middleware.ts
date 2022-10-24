@@ -8,7 +8,7 @@ import { IToken } from "../interface/IToken";
 
 import UserModel from "../model/user.model";
 import RolModel from "../model/rol.model";
-import { APP_MOBILE, TypesApplications } from "../types/type-application";
+import { APP_MOBILE } from "../types/type-application";
 import { IToBack } from "../interface/IDataRol";
 
 class tokenAuth {

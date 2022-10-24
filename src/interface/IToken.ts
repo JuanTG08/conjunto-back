@@ -1,9 +1,11 @@
 import { IToBack } from './IDataRol';
 
 export interface IDataUser {
+    _id: string;
     name: string;
     lastname: string;
     email: string;
+    role: string;
 }
 
 export interface ITokenRole {

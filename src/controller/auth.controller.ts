@@ -38,16 +38,18 @@ class AuthCtrl {
     // Retornamos el token
     const { _id, role } = getUser.payload;
     const token = await tokenAuth.createTokenAuth({
-      _id: _id,
+      _id,
       role: {
         _id: role._id,
         name: role.name
       },
     }, applicationType.keyEncrypt);
     const dataUser: IDataUser = {
+      _id,
       name: getUser.payload.name,
       lastname: getUser.payload.last_name,
       email: getUser.payload.email,
+      role: role.name,
     };
     return res.json(
       Hook.Message(false, 200, "Success login", { token, dataUser })
