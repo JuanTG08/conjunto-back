@@ -4,6 +4,7 @@ import app from "./app";
 import { Server as WebSocketServer } from "socket.io";
 // Importamos HTTP
 import http from 'http';
+import socketIo from "./socket.io";
 
 // Funcion de Inicio de la Aplicacion
 const main = async () => {
@@ -22,7 +23,7 @@ const main = async () => {
         }
     });
     // Ejecutamos las funcionalidades
-    // socketIo(io);
+    socketIo(io);
     console.log("Listening on Port", port);
 }
 // Ejecutamos la funcionalidad inicial

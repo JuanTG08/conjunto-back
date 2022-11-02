@@ -10,5 +10,6 @@ export default (io: any) => {
     */
 
     io.on('connection', (socket: any) => {
+        console.log("socket");
     });
 }
